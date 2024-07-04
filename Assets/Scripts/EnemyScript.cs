@@ -24,7 +24,7 @@ public class EnemyScript : MonoBehaviour
 
         if (player != null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            player.Dead?.Invoke();
         }
     }
 }

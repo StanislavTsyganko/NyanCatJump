@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpForce;
+    public UnityEvent Dead;
+    public UnityEvent JumpEvent;
 
     [Header("Components")]
 
@@ -18,14 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CheckFlip();
-        //Move();
     }
-
-   /* private void Move()
-    {
-        //_rigitbody.velocity = new Vector2(Input.acceleration.x * _moveSpeed, _rigitbody.velocity.y);
-
-    }*/
 
     public void Jump(float angle)
     {
@@ -33,19 +29,27 @@ public class PlayerMovement : MonoBehaviour
         double sinus = Mathf.Sin(angleInRadians);
         double cosinus = Mathf.Cos(angleInRadians);
         _rigitbody.velocity = new Vector2((float)(_jumpForce * sinus), (float)(_jumpForce * cosinus));
-
+        JumpEvent?.Invoke();
     }
 
     private void CheckFlip()
     {
-        if (Input.acceleration.x > 0 && !_lookRight)
+        if (_rigitbody.velocity.x > 0 && !_lookRight)
+        {
+            Flip();
+        }
+        else if (_rigitbody.velocity.x < 0 && _lookRight)
+        {
+            Flip();
+        }
+        /*if (Input.acceleration.x > 0 && !_lookRight)
         {
             Flip();
         }
         else if (Input.acceleration.x < 0 && _lookRight)
         {
             Flip();
-        }
+        }*/
     }
 
     private void Flip()
