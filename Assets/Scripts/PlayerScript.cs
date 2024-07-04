@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(float angle)
     {
+        //Debug.Log("Ïðûæîê: ");
         float angleInRadians = (float)(angle * (Math.PI/180));
         double sinus = Mathf.Sin(angleInRadians);
         double cosinus = Mathf.Cos(angleInRadians);
@@ -42,14 +43,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
-        /*if (Input.acceleration.x > 0 && !_lookRight)
-        {
-            Flip();
-        }
-        else if (Input.acceleration.x < 0 && _lookRight)
-        {
-            Flip();
-        }*/
     }
 
     private void Flip()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class OblakoScript : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigitbody;
+    [SerializeField] private Transform _target;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,6 +16,14 @@ public class OblakoScript : MonoBehaviour
             var angle = _rigitbody.transform.localEulerAngles.z*(-1);
             //angle = Mathf.Repeat(angle + 180, 360) - 180;
             player.Jump((float)angle); //
+        }
+    }
+
+    public void Update()
+    {
+        if (_target.position.y > transform.position.y)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -15,8 +15,8 @@ public class MenuButtonsScript : MonoBehaviour
         SceneManager.LoadScene(numScene);
     }
 
-    public void Exit()
+   /* public void Exit()
     {
         Application.Quit();
-    }
+    }*/
 }

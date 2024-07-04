@@ -22,7 +22,7 @@ public class ScoreScript : MonoBehaviour
     {
         highscore = (int)score;
         ScoreText.text = "" + highscore.ToString();
-        currScoreText.text = "" + highscore.ToString();
+        //currScoreText.text = "" + highscore.ToString();
         if (PlayerPrefs.GetInt("score") <= highscore)
             PlayerPrefs.SetInt("score", highscore); //highscore = score;
         HighscoreText.text = PlayerPrefs.GetInt("score").ToString();

@@ -9,7 +9,6 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigitbody;
     [SerializeField] private bool _lookRight;
 
-
     private void Update()
     {
         if (_lookRight)
@@ -26,5 +25,11 @@ public class EnemyScript : MonoBehaviour
         {
             player.Dead?.Invoke();
         }
+    }
+
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
