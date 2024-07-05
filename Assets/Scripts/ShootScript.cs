@@ -1,70 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ShootScript : MonoBehaviour
 {
-    private List<GameObject> _enemys;
-    private EnemyScript _closest;
-    private GameObject bullet;
-    private Transform _shotPoint;/*
-    [SerializeField] private Area area;*/
+    private GameObject[] _enemys;
+    private GameObject _closest;
+    private GameObject _bullet;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Image ImageStar;
+    [SerializeField] private float maxTimer;
+    private float timer;
 
-   /* void Update()
+
+    public void Shout()
     {
-        EnemyScript closest = FindClosest();
-        if (closest)
+        _enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        _closest = FindClosest();
+        if (_closest)
         {
-            //if(Vector2.Disctance(transform.position, closest.GetComponent<Transform>().position))
-            Debug.Log(name + " Game Object Finded!");
-
+            if (timer <= 0)
+            {
+                ImageStar.color = new Color(255, 255, 255, 0.7f);
+                Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+                _bullet = GameObject.FindWithTag("Bullet");
+                timer = maxTimer;
+            }
         }
-
-
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void FixedUpdate()
     {
-        GameObject enemy = GameObject.FindWithTag("Enemy");
-        //if(collision.gameObject.TryGetComponent<EnemyScript>(out EnemyScript enemy))
-        _enemys.Add(enemy);        
+        timer -= Time.deltaTime;
+        if (timer <= 0 && ImageStar)
+            ImageStar.color = new Color(255, 255, 255, 1);
+
+        if (_closest && _bullet)
+        {
+            if (_bullet.transform.position == _closest.transform.position)
+                Destroy(_bullet);   
+            _bullet.transform.position = Vector2.MoveTowards(_bullet.transform.position, _closest.transform.position, 0.5f);
+        }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        GameObject enemy = GameObject.FindWithTag("Enemy");
-        //if (collision.gameObject.TryGetComponent<EnemyScript>(out EnemyScript enemy))
-        _enemys.Remove(enemy);
-    }
 
-
-    public void ShoutEnemy()
-    {
-
-
-
-
-    }*/
-
-
-    /*private EnemyScript FindClosest()
+    GameObject FindClosest()
     {
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
         foreach (var item in _enemys)
         {
-            if(item)
+            if (item)
             {
-                Vector3 diff = item.position - position;
+                Vector3 diff = item.transform.position - position;
                 float currDistance = diff.sqrMagnitude;
-                if(currDistance < distance) 
+                if (currDistance < distance)
                 {
-                    _closest= item;
+                    _closest = item;
                     distance = currDistance;
                 }
             }
         }
 
         return _closest;
-    }*/
+    }
 }

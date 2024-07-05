@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
 
-    [SerializeField] private Rigidbody2D _rigitbody;
+    [SerializeField] public Rigidbody2D _rigitbody;
 
     [SerializeField] private bool _lookRight;
 
@@ -23,9 +23,18 @@ public class PlayerMovement : MonoBehaviour
         CheckFlip();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject collisionObject = collision.gameObject;
+
+        if (collisionObject.CompareTag("DownPart"))
+        {
+            _rigitbody.velocity = new Vector2(0, 0);
+        }
+    }
+
     public void Jump(float angle)
     {
-        //Debug.Log("Прыжок: ");
         float angleInRadians = (float)(angle * (Math.PI/180));
         double sinus = Mathf.Sin(angleInRadians);
         double cosinus = Mathf.Cos(angleInRadians);

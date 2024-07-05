@@ -9,9 +9,8 @@ public class ShoutingTouchScript : MonoBehaviour, IPointerClickHandler
 {
     public UnityEvent ShoutEvent;
 
-    private Vector2 origin;
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        ShoutEvent?.Invoke();
+        //ShoutEvent?.Invoke();
     }
 }

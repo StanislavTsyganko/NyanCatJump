@@ -20,11 +20,12 @@ public class ScoreScript : MonoBehaviour
 
     private void Update()
     {
+        //PlayerPrefs.SetInt("score", 0);
         highscore = (int)score;
         ScoreText.text = "" + highscore.ToString();
         //currScoreText.text = "" + highscore.ToString();
         if (PlayerPrefs.GetInt("score") <= highscore)
-            PlayerPrefs.SetInt("score", highscore); //highscore = score;
+            PlayerPrefs.SetInt("score", highscore);
         HighscoreText.text = PlayerPrefs.GetInt("score").ToString();
     }
 }

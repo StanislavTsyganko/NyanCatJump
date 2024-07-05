@@ -5,13 +5,13 @@ using UnityEngine;
 public class OblakoScript : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigitbody;
-    [SerializeField] private Transform _target;
+    private GameObject _target; 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var player = collision.GetComponent<PlayerMovement>();
 
-        if (player != null && collision.attachedRigidbody.velocity.y < 0) // && collision.transform.position.y - collision.bounds.size.y / 2 > transform.position.y
+        if (player != null) // && collision.transform.position.y - collision.bounds.size.y / 2 > transform.position.y && collision.attachedRigidbody.velocity.y <= 0
         {
             var angle = _rigitbody.transform.localEulerAngles.z*(-1);
             //angle = Mathf.Repeat(angle + 180, 360) - 180;
@@ -21,7 +21,8 @@ public class OblakoScript : MonoBehaviour
 
     public void Update()
     {
-        if (_target.position.y > transform.position.y)
+        _target = GameObject.FindWithTag("Finish");
+        if (_target.transform.position.y > transform.position.y)
         {
             Destroy(gameObject);
         }
